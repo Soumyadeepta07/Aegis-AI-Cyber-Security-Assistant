@@ -26,12 +26,10 @@ export default function LoginPage() {
         password,
       }, {
         onSuccess: async () => {
-          const { data } = await authClient.getSession();
-          if (data?.user?.role === "admin") {
-            router.push("/admin");
-          } else {
-            router.push("/dashboard");
-          }
+          console.log("LOGIN SUCCESS");
+
+          setIsLoading(false);
+          router.push("/dashboard");
           router.refresh();
         },
         onError: (ctx) => {
@@ -129,8 +127,8 @@ export default function LoginPage() {
             <div className="mt-6 border-t border-slate-800/80 pt-4 text-center">
               <span className="text-[10px] font-mono text-slate-500 block uppercase tracking-wider mb-2">Demo Credentials</span>
               <div className="grid grid-cols-1 gap-2 text-[10px] font-mono">
-                <button 
-                  type="button" 
+                <button
+                  type="button"
                   onClick={() => { setEmail("user@aicyber.com"); setPassword("password123"); }}
                   className="bg-slate-950 border border-slate-800 rounded px-2 py-1.5 text-cyan-400/80 hover:text-cyan-400 transition-colors"
                 >
