@@ -9,18 +9,16 @@ export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: provider as "mysql" | "sqlite",
   }),
+
   emailAndPassword: {
     enabled: true,
     autoSignIn: true,
     password: {
-      hash: async (password: string) => {
-        return bcrypt.hashSync(password, 10);
-      },
-      verify: async ({ password, hash }: { password: string; hash: string }) => {
-        return bcrypt.compareSync(password, hash);
-      }
-    }
+      hash: async (password: string) => bcrypt.hashSync(password, 10),
+      verify: async ({ password, hash }) => bcrypt.compareSync(password, hash),
+    },
   },
+
   user: {
     additionalFields: {
       role: {
@@ -32,9 +30,15 @@ export const auth = betterAuth({
         type: "boolean",
         input: false,
         defaultValue: false,
-      }
-    }
+      },
+    },
   },
-  secret: process.env.BETTER_AUTH_SECRET || "ai_cyber_security_assistant_super_secret_key_32_chars",
-  baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3000",
+
+  secret: process.env.BETTER_AUTH_SECRET,
+  baseURL: process.env.BETTER_AUTH_URL,
+
+  trustedOrigins: [
+    process.env.BETTER_AUTH_URL!,
+    process.env.NEXT_PUBLIC_APP_URL!,
+  ].filter(Boolean),
 });
