@@ -221,7 +221,7 @@ export default function SecurityAuditPage() {
         {auditResult && (
           <button
             onClick={handleDownloadPdf}
-            className="inline-flex items-center gap-1.5 px-4 py-2 bg-cyan-500 hover:bg-cyan-600 text-slate-950 font-bold text-xs rounded-xl shadow-md transition-all cursor-pointer"
+            className="w-full md:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-cyan-500 hover:bg-cyan-600 text-slate-950 font-bold text-xs rounded-xl shadow-md transition-all cursor-pointer shrink-0"
           >
             <Download className="h-4 w-4" /> Download PDF Audit Report
           </button>
@@ -230,7 +230,7 @@ export default function SecurityAuditPage() {
 
       {/* URL Input Form */}
       <div className="bg-[#0b1329]/60 border border-slate-800 rounded-2xl p-6 glow-blue">
-        <form onSubmit={handleAudit} className="flex gap-2">
+        <form onSubmit={handleAudit} className="flex flex-col sm:flex-row gap-3">
           <div className="relative flex-1">
             <AlertCircle className="absolute left-3.5 top-3.5 h-4.5 w-4.5 text-slate-500" />
             <input
@@ -245,9 +245,9 @@ export default function SecurityAuditPage() {
           <button
             type="submit"
             disabled={isScanning || !urlInput}
-            className="px-6 py-3.5 rounded-xl bg-cyan-500 hover:bg-cyan-600 text-slate-950 font-bold text-sm transition-all shadow-md shadow-cyan-500/10 disabled:opacity-50 cursor-pointer"
+            className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-cyan-500 hover:bg-cyan-600 text-slate-950 font-bold text-sm transition-all shadow-md shadow-cyan-500/10 disabled:opacity-50 cursor-pointer flex items-center justify-center gap-1.5 shrink-0"
           >
-            {isScanning ? "Auditing Headers..." : "Initialize Audit"}
+            {isScanning ? "Auditing..." : "Initialize Audit"}
           </button>
         </form>
 

@@ -113,7 +113,7 @@ export default function HistoryPage() {
 
       {/* Filters HUD */}
       <div className="bg-[#0b1329]/60 border border-slate-800 rounded-2xl p-5 glow-blue flex flex-col md:flex-row gap-4 items-center justify-between">
-        <form onSubmit={handleSearchSubmit} className="w-full md:w-1/3 flex gap-2">
+        <form onSubmit={handleSearchSubmit} className="w-full md:w-1/3 flex flex-col sm:flex-row gap-2.5">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-500" />
             <input
@@ -124,12 +124,12 @@ export default function HistoryPage() {
               className="w-full pl-9 pr-4 py-1.5 bg-slate-950 border border-slate-800 rounded-xl text-slate-200 placeholder-slate-650 focus:outline-none focus:border-cyan-500/50 transition-all font-mono text-xs"
             />
           </div>
-          <button type="submit" className="px-3 py-1.5 rounded-xl bg-cyan-500 text-slate-950 font-bold text-xs cursor-pointer">
+          <button type="submit" className="w-full sm:w-auto px-3 py-1.5 rounded-xl bg-cyan-500 text-slate-950 font-bold text-xs cursor-pointer flex items-center justify-center shrink-0">
             Search
           </button>
         </form>
 
-        <div className="flex gap-4 items-center font-mono text-xs w-full md:w-auto flex-wrap">
+        <div className="flex gap-4 items-center font-mono text-xs w-full md:w-auto flex-wrap justify-between sm:justify-start">
           {/* Scan Type Filter */}
           <div className="flex items-center gap-2">
             <span className="text-slate-500 uppercase text-[10px]">Type:</span>

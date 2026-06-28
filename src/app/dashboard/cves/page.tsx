@@ -77,7 +77,7 @@ export default function CveDatabasePage() {
 
       {/* Search & Filter Options */}
       <div className="flex flex-col md:flex-row gap-4 items-center justify-between bg-[#0b1329]/60 border border-slate-800 rounded-2xl p-5 glow-blue shrink-0">
-        <form onSubmit={handleSearchSubmit} className="flex-1 w-full flex gap-2">
+        <form onSubmit={handleSearchSubmit} className="flex-1 w-full flex flex-col sm:flex-row gap-3">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-3 h-4.5 w-4.5 text-slate-500" />
             <input
@@ -90,7 +90,7 @@ export default function CveDatabasePage() {
           </div>
           <button
             type="submit"
-            className="px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-600 text-slate-950 font-bold text-xs transition-all shadow-md shadow-cyan-500/10 cursor-pointer"
+            className="w-full sm:w-auto px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-600 text-slate-950 font-bold text-xs transition-all shadow-md shadow-cyan-500/10 cursor-pointer flex items-center justify-center shrink-0"
           >
             Query
           </button>

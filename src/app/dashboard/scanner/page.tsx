@@ -56,7 +56,7 @@ export default function UrlScannerPage() {
 
       {/* Scan Input Card */}
       <div className="bg-[#0b1329]/60 border border-slate-800 rounded-2xl p-6 glow-blue">
-        <form onSubmit={handleScan} className="flex gap-2">
+        <form onSubmit={handleScan} className="flex flex-col sm:flex-row gap-3">
           <div className="relative flex-1">
             <Search className="absolute left-3.5 top-3.5 h-4.5 w-4.5 text-slate-500" />
             <input
@@ -71,7 +71,7 @@ export default function UrlScannerPage() {
           <button
             type="submit"
             disabled={isScanning || !urlInput}
-            className="px-6 py-3.5 rounded-xl bg-cyan-500 hover:bg-cyan-600 text-slate-950 font-bold text-sm transition-all shadow-md shadow-cyan-500/10 disabled:opacity-50 cursor-pointer flex items-center gap-1.5"
+            className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-cyan-500 hover:bg-cyan-600 text-slate-950 font-bold text-sm transition-all shadow-md shadow-cyan-500/10 disabled:opacity-50 cursor-pointer flex items-center justify-center gap-1.5 shrink-0"
           >
             {isScanning ? "Scanning..." : "Execute Scan"}
           </button>
@@ -146,14 +146,14 @@ export default function UrlScannerPage() {
             </div>
 
             <div className="space-y-4 font-mono text-xs text-slate-300">
-              <div className="grid grid-cols-3 gap-2 border-b border-slate-900 pb-2.5">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 border-b border-slate-900 pb-2.5">
                 <span className="text-slate-500 uppercase">Target Link:</span>
-                <span className="col-span-2 text-slate-200 break-all select-all">{scanResult.scan.target}</span>
+                <span className="sm:col-span-2 text-slate-200 break-all select-all">{scanResult.scan.target}</span>
               </div>
               
-              <div className="grid grid-cols-3 gap-2 border-b border-slate-900 pb-2.5">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 border-b border-slate-900 pb-2.5">
                 <span className="text-slate-500 uppercase">Registry Status:</span>
-                <span className="col-span-2 text-slate-200 flex items-center gap-1.5">
+                <span className="sm:col-span-2 text-slate-200 flex items-center gap-1.5">
                   <Fingerprint className="h-3.5 w-3.5 text-cyan-400" />
                   {scanResult.details?.safeBrowsing?.isMalicious ? "Flagged on Blacklist" : "Clean database record"}
                 </span>

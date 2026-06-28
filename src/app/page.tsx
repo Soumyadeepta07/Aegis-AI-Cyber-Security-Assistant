@@ -106,7 +106,7 @@ export default function LandingPage() {
             <span className="inline-flex h-2 w-2 rounded-full bg-emerald-500 animate-ping" />
           </div>
 
-          <form onSubmit={handleQuickScan} className="flex gap-2">
+          <form onSubmit={handleQuickScan} className="flex flex-col sm:flex-row gap-3">
             <div className="relative flex-1">
               <input
                 type="text"
@@ -119,7 +119,7 @@ export default function LandingPage() {
             <button
               type="submit"
               disabled={isScanning}
-              className="px-5 py-3 rounded-xl bg-cyan-500 text-slate-950 font-semibold text-sm hover:bg-cyan-600 focus:outline-none disabled:opacity-50 transition-all cursor-pointer flex items-center gap-1.5"
+              className="w-full sm:w-auto px-5 py-3 rounded-xl bg-cyan-500 text-slate-950 font-semibold text-sm hover:bg-cyan-600 focus:outline-none disabled:opacity-50 transition-all cursor-pointer flex items-center justify-center gap-1.5 shrink-0"
             >
               {isScanning ? (
                 <>Scanning...</>

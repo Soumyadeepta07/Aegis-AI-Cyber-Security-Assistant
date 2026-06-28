@@ -56,7 +56,7 @@ export default function DomainIntelPage() {
 
       {/* Input Form */}
       <div className="bg-[#0b1329]/60 border border-slate-800 rounded-2xl p-6 glow-blue">
-        <form onSubmit={handleScan} className="flex gap-2">
+        <form onSubmit={handleScan} className="flex flex-col sm:flex-row gap-3">
           <div className="relative flex-1">
             <Globe className="absolute left-3.5 top-3.5 h-4.5 w-4.5 text-slate-500" />
             <input
@@ -71,7 +71,7 @@ export default function DomainIntelPage() {
           <button
             type="submit"
             disabled={isScanning || !domainInput}
-            className="px-6 py-3.5 rounded-xl bg-cyan-500 hover:bg-cyan-600 text-slate-950 font-bold text-sm transition-all shadow-md shadow-cyan-500/10 disabled:opacity-50 cursor-pointer"
+            className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-cyan-500 hover:bg-cyan-600 text-slate-950 font-bold text-sm transition-all shadow-md shadow-cyan-500/10 disabled:opacity-50 cursor-pointer flex items-center justify-center gap-1.5 shrink-0"
           >
             {isScanning ? "Resolving..." : "Analyze Domain"}
           </button>
@@ -229,7 +229,7 @@ export default function DomainIntelPage() {
                   <h3 className="font-outfit font-bold text-sm text-slate-200">DNS Security Configuration</h3>
                 </div>
 
-                <div className="grid grid-cols-3 gap-3 text-center text-xs font-mono">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-center text-xs font-mono">
                   <div className={`p-3 border rounded-xl flex flex-col justify-between h-20 ${
                     scanResult.details.securityConfig.spf ? 'bg-emerald-950/20 border-emerald-900/50 text-emerald-400' : 'bg-rose-950/20 border-rose-900/50 text-rose-400'
                   }`}>

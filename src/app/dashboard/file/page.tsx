@@ -206,7 +206,7 @@ export default function FileAnalyzerPage() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="p-2.5 bg-slate-950/60 border border-slate-900 rounded-xl">
                   <span className="text-[9px] text-slate-500 uppercase block">Magic Bytes Header</span>
                   <span className="text-slate-200 font-bold tracking-wider">{scanResult.details.metadata.headerBytes.toUpperCase()}</span>

@@ -245,7 +245,7 @@ export default function SecurityAdvisorPage() {
   ];
 
   return (
-    <div className="flex flex-col h-[calc(100vh-140px)] space-y-6">
+    <div className="flex flex-col lg:h-[calc(100vh-160px)] space-y-6 min-h-[550px]">
       {/* Title Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 shrink-0">
         <div className="flex items-center gap-3">
@@ -312,7 +312,7 @@ export default function SecurityAdvisorPage() {
           )}
 
           {/* Messages list */}
-          <div className="flex-1 overflow-y-auto space-y-6 pr-2">
+          <div className="flex-1 overflow-y-auto space-y-6 pr-2 max-h-[400px] lg:max-h-none">
             {messages.map((m, idx) => (
               <div key={idx} className="flex gap-4 items-start text-xs leading-relaxed font-mono select-text">
                 <div className={`p-2 rounded-lg border shrink-0 ${
