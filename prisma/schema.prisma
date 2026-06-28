@@ -1,0 +1,200 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "mysql"
+  url = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id            String         @id @default(cuid())
+  name          String
+  email         String         @unique
+  emailVerified Boolean        @default(false)
+  image         String?
+  role          String         @default("user")
+  password      String?
+  isBlocked     Boolean        @default(false)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  
+  sessions      Session[]
+  accounts      Account[]
+  scans         Scan[]
+  chatHistories ChatHistory[]
+  auditReports  AuditReport[]
+
+  @@map("users")
+}
+
+model Session {
+  id        String   @id
+  userId    String
+  expiresAt DateTime
+  token     String   @unique
+  ipAddress String?
+  userAgent String? @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  accessToken           String? @db.Text
+  refreshToken          String? @db.Text
+  idToken               String? @db.Text
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String? @db.Text
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+  
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("accounts")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("verifications")
+}
+
+model Scan {
+  id             String          @id @default(cuid())
+  userId         String?
+  type           String          // "url" | "domain" | "file" | "audit"
+  target         String
+  status         String          // "safe" | "suspicious" | "dangerous"
+  threatScore    Int
+  explanation    String @db.Text
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  
+  user           User?           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  domainScan     DomainScan?
+  fileScan       FileScan?
+  securityReport SecurityReport?
+
+  @@index([userId])
+  @@index([target])
+  @@map("scans")
+}
+
+model DomainScan {
+  id              String   @id @default(cuid())
+  scanId          String   @unique
+  domain          String
+  age             String   @default("Unknown")
+  registrar       String   @default("Unknown")
+  dnsRecords      String @db.Text  // Store as JSON string
+  sslCertInfo     String @db.Text  // Store as JSON string
+  reputationScore Int      @default(0)
+  securityConfig  String @db.Text  // Store as JSON string
+  createdAt       DateTime @default(now())
+  
+  scan            Scan     @relation(fields: [scanId], references: [id], onDelete: Cascade)
+
+  @@index([scanId])
+  @@map("domain_scans")
+}
+
+model FileScan {
+  id             String   @id @default(cuid())
+  scanId         String   @unique
+  fileName       String
+  fileSize       Int
+  fileType       String
+  md5            String
+  sha256         String
+  metadata       String @db.Text  // Store as JSON string
+  riskIndicators String @db.Text  // Store as JSON string
+  createdAt      DateTime @default(now())
+  
+  scan           Scan     @relation(fields: [scanId], references: [id], onDelete: Cascade)
+
+  @@index([scanId])
+  @@map("file_scans")
+}
+
+model SecurityReport {
+  id            String   @id @default(cuid())
+  scanId        String   @unique
+  url           String
+  host          String
+  securityScore Int
+  threatLevel   String
+  headers       String @db.Text  // Store as JSON string
+  findings      String @db.Text  // Store as JSON string
+  summary       String @db.Text
+  isFetchedLive Boolean
+  fetchError    String?
+  createdAt     DateTime @default(now())
+  
+  scan          Scan     @relation(fields: [scanId], references: [id], onDelete: Cascade)
+
+  @@index([scanId])
+  @@map("security_reports")
+}
+
+model ChatHistory {
+  id        String   @id @default(cuid())
+  userId    String
+  messages  String @db.Text  // Store as JSON string
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("chat_history")
+}
+
+model CVE {
+  id          String   @id @default(cuid())
+  cveId       String   @unique
+  severity    String   // "low" | "medium" | "high" | "critical"
+  description String @db.Text
+  mitigation  String @db.Text
+  references  String @db.Text  // Store as JSON string
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([cveId])
+  @@map("cves")
+}
+
+model AuditReport {
+  id            String   @id @default(cuid())
+  userId        String?
+  url           String
+  securityScore Int
+  threatLevel   String
+  findings      String @db.Text  // Store as JSON string
+  summary       String @db.Text
+  isFetchedLive Boolean
+  fetchError    String?
+  createdAt     DateTime @default(now())
+  
+  user          User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("audit_reports")
+}
